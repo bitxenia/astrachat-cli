@@ -1,0 +1,26 @@
+{
+  "name": "@bitxenia/astrachat-cli",
+  "version": "0.0.1",
+  "description": "Command-line interface to manage an Astrachat node.",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc",
+    "format": "prettier --write .",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prepare": "husky"
+  },
+  "bin": {
+    "astrawiki": "./dist/client/index.js"
+  },
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "eslint": "^8.57.0",
+    "eslint-config-next": "^14.2.6",
+    "eslint-config-prettier": "^10.0.1",
+    "husky": "^9.1.7",
+    "lint-staged": "^15.4.1",
+    "prettier-plugin-tailwindcss": "^0.6.10",
+    "typescript": "^5.8.3"
+  }
+}
