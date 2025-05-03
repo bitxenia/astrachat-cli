@@ -10,7 +10,7 @@ const cli = meow(
 	  $ astrachat-cli
 
 	Options
-		--name  Your name
+		--name  Chat name
 
 	Examples
 	  $ astrachat-cli --name=Jane
@@ -26,4 +26,6 @@ const cli = meow(
 	},
 );
 
-render(<App name={cli.flags.name} />);
+const app = render(<App chatName={cli.flags.name} />);
+
+await app.waitUntilExit();
