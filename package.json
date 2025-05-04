@@ -17,11 +17,13 @@
 		"dist"
 	],
 	"dependencies": {
-		"@bitxenia/astrachat-eth": "^0.0.8",
+		"@bitxenia/astrachat-eth": "^0.0.5-rc3",
 		"ink": "^5.2.1",
+		"ink-select-input": "^6.2.0",
 		"ink-text-input": "^6.0.0",
 		"meow": "^11.0.0",
-		"react": "^18.2.0"
+		"react": "^18.2.0",
+		"zustand": "^5.0.4"
 	},
 	"devDependencies": {
 		"@sindresorhus/tsconfig": "^3.0.1",

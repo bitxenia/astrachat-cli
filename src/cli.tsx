@@ -28,6 +28,14 @@ const cli = meow(
 	},
 );
 
+const exit = () => {
+	process.exit(0);
+};
+
+process.on('SIGINT', exit);
+process.on('SIGQUIT', exit);
+process.on('SIGTERM', exit);
+
 const app = render(<App chatName={cli.flags.name} />);
 
 await app.waitUntilExit();
