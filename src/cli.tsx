@@ -21,6 +21,8 @@ const cli = meow(
 		flags: {
 			name: {
 				type: 'string',
+				// isRequired: true,
+				default: 'my-chat',
 			},
 		},
 	},
