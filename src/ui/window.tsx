@@ -10,6 +10,7 @@ export function Window({
 }> &
 	BoxProps) {
 	const [_x, y] = useStdoutDimensions();
+
 	return (
 		<Box flexDirection="column" height={y} {...props}>
 			{children}

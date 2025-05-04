@@ -69,16 +69,23 @@ export function ChatRoom() {
 	return (
 		<>
 			<Box flexDirection="column">
-				<Text bold color={'white'}>
-					{chatName}
-				</Text>
-				<Box borderStyle="single" flexDirection="column" margin={2}>
+				<Box justifyContent="center">
+					<Text bold color={'white'} key={chatName}>
+						{chatName}
+					</Text>
+				</Box>
+				<Box
+					borderStyle="single"
+					flexDirection="column"
+					marginX={2}
+					flexGrow={2}
+				>
 					{messages.map(m => (
 						<Message message={m} />
 					))}
 				</Box>
 				<Spacer />
-				<Box borderStyle="single" minHeight="10%">
+				<Box borderStyle="double" minHeight="10%" marginBottom={1} flexGrow={1}>
 					<TextInput
 						value={newMessage}
 						onChange={setNewMessage}

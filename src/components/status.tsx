@@ -11,13 +11,18 @@ export function Status() {
 	return (
 		<Box
 			position="absolute"
-			flexDirection="column"
+			flexDirection="row"
 			alignItems="flex-end"
-			justifyContent="flex-end"
+			justifyContent="flex-start"
 			minWidth={x}
-			marginY={y - 2}
+			marginY={y - 3}
+			borderStyle="classic"
 		>
 			<Text>{storage ? `storage set` : `storage not set`}</Text>
+			<Text bold color={'white'}>
+				{' '}
+				|{' '}
+			</Text>
 			<Text>{account ? `${account}` : `account not set`}</Text>
 		</Box>
 	);

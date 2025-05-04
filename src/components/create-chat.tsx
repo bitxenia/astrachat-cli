@@ -13,6 +13,7 @@ export function CreateChat() {
 			console.error(`storage not set`);
 			return;
 		}
+
 		if (chatName === '') {
 			console.error(`ChatName can't be empty`);
 			return;

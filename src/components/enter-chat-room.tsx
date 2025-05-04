@@ -4,7 +4,7 @@ import {Box} from 'ink';
 import {State} from '../constants.js';
 import TextInput from 'ink-text-input';
 
-export function SelectChat() {
+export function EnterChatRoom() {
 	const [chatName, setChatName] = useState<string>('');
 	const {setState, setChatName: setChat} = useChat();
 

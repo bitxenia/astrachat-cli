@@ -18,7 +18,7 @@ export function Menu() {
 		},
 		{
 			label: 'Select chat',
-			value: State.SELECT_CHAT,
+			value: State.ENTER_CHAT_ROOM,
 		},
 		{
 			label: 'Select Account',

@@ -1,4 +1,4 @@
-import {Box, Text} from 'ink';
+import {Box} from 'ink';
 import React from 'react';
 import {Menu} from './menu.js';
 import {Logo} from './logo.js';
