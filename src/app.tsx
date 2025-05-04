@@ -1,21 +1,16 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useInput, Text} from 'ink';
 
 import EthChatStorage from './lib/eth-chat-storage.js';
 import {Window} from './ui/window.js';
 import {Chat} from './ui/chat.js';
-import {
-	ChatStorageContext,
-	ChatStorageContextProps,
-	ChatStorageProvider,
-} from './components/providers/chat-storage-provider.js';
+import {ChatStorageProvider} from './components/providers/chat-storage-provider.js';
 import {State} from './constants.js';
 import {useChat} from './hooks/use-chat.js';
+import {Status} from './components/status.js';
 
 const App = () => {
-	// const {chatStorage, setChatStorage} =
-	// 	useContext<ChatStorageContextProps>(ChatStorageContext);
-	const {account, storage, setState, setStorage} = useChat();
+	const {storage, setState, setStorage} = useChat();
 	const [isLoading, setIsLoading] = useState<boolean>(false);
 
 	useInput((_, key) => {
@@ -53,8 +48,7 @@ const App = () => {
 		<Window>
 			<ChatStorageProvider>
 				<Chat />
-				<Text>{storage ? `storage set` : `storage not set`}</Text>
-				<Text>{account ? `${account}` : `account not set`}</Text>
+				<Status />
 			</ChatStorageProvider>
 		</Window>
 	);

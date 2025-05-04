@@ -7,7 +7,6 @@ import {State} from '../constants.js';
 export function CreateChat() {
 	const [chatName, setChatName] = useState<string>('');
 	const {storage, setState} = useChat();
-	// const {chatStorage} = useContext(ChatStorageContext);
 
 	const handleSubmitChatName = async () => {
 		if (!storage) {
@@ -28,15 +27,13 @@ export function CreateChat() {
 	};
 
 	return (
-		<>
-			<Box>
-				<Text>Insert chat name: </Text>
-				<TextInput
-					value={chatName}
-					onChange={setChatName}
-					onSubmit={handleSubmitChatName}
-				/>
-			</Box>
-		</>
+		<Box>
+			<Text>Insert chat name: </Text>
+			<TextInput
+				value={chatName}
+				onChange={setChatName}
+				onSubmit={handleSubmitChatName}
+			/>
+		</Box>
 	);
 }

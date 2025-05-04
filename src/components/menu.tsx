@@ -1,4 +1,4 @@
-import {Box} from 'ink';
+import {Box, Spacer} from 'ink';
 import SelectInput from 'ink-select-input';
 import React from 'react';
 import {State} from '../constants.js';
@@ -12,10 +12,6 @@ export function Menu() {
 	};
 
 	const items = [
-		{
-			label: 'Home',
-			value: State.HOME,
-		},
 		{
 			label: 'Create chat',
 			value: State.CREATE_CHAT,
@@ -32,9 +28,11 @@ export function Menu() {
 
 	return (
 		<>
-			<Box>
+			<Spacer />
+			<Box alignItems="center" alignSelf="auto">
 				<SelectInput items={items} onSelect={handleSelect} />
 			</Box>
+			<Spacer />
 		</>
 	);
 }

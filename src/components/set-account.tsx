@@ -1,16 +1,12 @@
-import React, {useContext, useState} from 'react';
+import React from 'react';
 import {useChat} from '../hooks/use-chat.js';
-import {Box, Text} from 'ink';
+import {Box} from 'ink';
 
-// import {ChatStorageContext} from './providers/chat-storage-provider.js';
-
-import {ChatStorageContext} from './providers/chat-storage-provider.js';
 import SelectInput from 'ink-select-input';
 import EthChatStorage from '../lib/eth-chat-storage.js';
 import {State} from '../constants.js';
 
 export function SetAccount() {
-	// const {chatStorage, setChatStorage} = useContext(ChatStorageContext);
 	const {setAccount, setState, setStorage} = useChat();
 
 	const handleSelect = async (item: any) => {

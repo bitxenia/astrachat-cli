@@ -1,15 +1,15 @@
 import {Box, Spacer, Text} from 'ink';
-// import TextInput from 'ink-text-input';
-import React, {useContext, useEffect, useState} from 'react';
-import {ChatStorageContext} from './providers/chat-storage-provider.js';
+
+import React, {useEffect, useState} from 'react';
 import {useChat} from '../hooks/use-chat.js';
-// import {State} from '../constants.js';
+
 import {ChatMessage} from '@bitxenia/astrachat-eth';
 import {Message} from './message.js';
 import TextInput from 'ink-text-input';
 
+const MESSAGES_TO_SHOW = 12;
+
 export function ChatRoom() {
-	// const {chatStorage} = useContext(ChatStorageContext);
 	const [messages, setMessages] = useState<ChatMessage[]>([]);
 	const [newMessage, setNewMessage] = useState<string>('');
 	const {chatName, storage} = useChat();
@@ -21,11 +21,30 @@ export function ChatRoom() {
 			}
 
 			const allMessages = await storage!.getChatMessages(chatName!);
-			setMessages(allMessages);
+			allMessages.sort((a, b) => (a.timestamp < b.timestamp ? -1 : 1));
+
+			setMessages(allMessages.slice(-MESSAGES_TO_SHOW));
 		};
 
 		fetchMessages();
-	}, [storage]);
+	}, [chatName, storage]);
+
+	useEffect(() => {
+		if (!storage) {
+			return;
+		}
+
+		const listenToNewMessages = async () => {
+			await storage!.listenToNewMessages(chatName!, (message: ChatMessage) => {
+				setMessages(prevMessages => [
+					...prevMessages.slice(-MESSAGES_TO_SHOW - 1),
+					message,
+				]);
+			});
+		};
+
+		listenToNewMessages();
+	}, [chatName, storage]);
 
 	const handleSubmitMessage = async () => {
 		if (!storage) {
@@ -39,36 +58,27 @@ export function ChatRoom() {
 		}
 
 		try {
-			await storage!.sendChatMessage(chatName!, newMessage);
+			const message = newMessage.trim();
+			await storage!.sendChatMessage(chatName!, message);
 			setNewMessage('');
 		} catch (e) {
 			console.error(e);
 		}
 	};
 
-	// 	try {
-	// 		await chatStorage?.createChat(chatName);
-	// 		setState(State.MENU);
-	// 	} catch (e) {
-	// 		console.error(e);
-	// 	}
-	// };
-
 	return (
 		<>
 			<Box flexDirection="column">
 				<Text bold color={'white'}>
-					aloha
+					{chatName}
 				</Text>
 				<Box borderStyle="single" flexDirection="column" margin={2}>
-					{messages
-						.sort((a, b) => (a.timestamp < b.timestamp ? -1 : 1))
-						.map(message => (
-							<Message message={message} />
-						))}
+					{messages.map(m => (
+						<Message message={m} />
+					))}
 				</Box>
 				<Spacer />
-				<Box borderStyle="single">
+				<Box borderStyle="single" minHeight="10%">
 					<TextInput
 						value={newMessage}
 						onChange={setNewMessage}
