@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Box, Text, useApp, useInput} from 'ink';
+import {Box, Newline, Spacer, Text, useApp, useInput} from 'ink';
 import TextInput from 'ink-text-input';
 import {ChatMessage} from '@bitxenia/astrachat-eth';
 import {ChatStorage} from './lib/chat-storage.js';
@@ -13,8 +13,8 @@ type Props = {
 const App = ({chatName}: Props) => {
 	const [chatStorage, setChatStorage] = useState<ChatStorage | null>(null);
 	const [messages, setMessages] = useState<ChatMessage[]>([]);
-	const [input, setInput] = useState<string>('');
-	const [x, y] = useStdoutDimensions();
+	const [newMessage, setNewMessage] = useState<string>('');
+	const [_x, y] = useStdoutDimensions();
 	const {exit} = useApp();
 
 	useInput((_, key) => {
@@ -24,9 +24,15 @@ const App = ({chatName}: Props) => {
 	});
 
 	useEffect(() => {
-		async () => {
-			setChatStorage(await EthChatStorage.create());
+		const initChatStorage = async () => {
+			try {
+				setChatStorage(await EthChatStorage.create());
+			} catch (e) {
+				console.error(e);
+			}
 		};
+
+		initChatStorage();
 	}, [chatName]);
 
 	useEffect(() => {
@@ -41,6 +47,17 @@ const App = ({chatName}: Props) => {
 
 		fetchMessages();
 	});
+
+	const handleSubmit = async () => {
+		if (!chatStorage) {
+			return;
+		}
+
+		// const message = input.trim();
+
+		await chatStorage!.sendChatMessage(chatName, newMessage);
+		setNewMessage('');
+	};
 
 	// useEffect(() => {
 	// 	const listenToNewMessages = async () => {
@@ -57,18 +74,21 @@ const App = ({chatName}: Props) => {
 	return (
 		<Box flexDirection="column" height={y}>
 			<Text>{chatName}</Text>
-			<Box>
+			<Box margin={2} borderStyle="single" flexDirection="column">
+				{messages.length === 0 && <Text>No messages yet</Text>}
 				{messages
 					.sort((a, b) => (a.timestamp < b.timestamp ? -1 : 1))
 					.map(message => (
 						<Message message={message} />
 					))}
 			</Box>
-			<Box>
+			<Spacer />
+			<Box borderStyle="bold">
 				<TextInput
-					placeholder="Enter your message"
-					value={input}
-					onChange={setInput}
+					placeholder="Enter your message..."
+					value={newMessage}
+					onChange={setNewMessage}
+					onSubmit={handleSubmit}
 				/>
 			</Box>
 		</Box>
@@ -79,8 +99,12 @@ export default App;
 
 const Message = ({message}: {message: ChatMessage}) => {
 	return (
-		<Text>
-			{message.sender}: {message.message}
+		<Text key={message.id}>
+			<Text color="green" wrap="truncate-end">
+				{message.sender}:{' '}
+			</Text>
+			<Text color="blue">{message.message}</Text>
+			<Newline />
 		</Text>
 	);
 };
