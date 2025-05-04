@@ -17,7 +17,7 @@
 		"dist"
 	],
 	"dependencies": {
-		"@bitxenia/astrachat-eth": "^0.0.5-rc3",
+		"@bitxenia/astrachat-eth": "^0.0.5-rc1",
 		"ink": "^5.2.1",
 		"ink-select-input": "^6.2.0",
 		"ink-text-input": "^6.0.0",

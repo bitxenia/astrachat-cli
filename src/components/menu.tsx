@@ -17,16 +17,16 @@ export function Menu() {
 			value: State.HOME,
 		},
 		{
-			label: 'Chat',
-			value: State.CHAT,
-		},
-		{
 			label: 'Create chat',
 			value: State.CREATE_CHAT,
 		},
 		{
-			label: 'Chat room',
-			value: State.CHAT_ROOM,
+			label: 'Select chat',
+			value: State.SELECT_CHAT,
+		},
+		{
+			label: 'Select Account',
+			value: State.SET_ACCOUNT,
 		},
 	];
 

@@ -1,23 +1,26 @@
 import {Box, Text} from 'ink';
 import TextInput from 'ink-text-input';
-import React, {useContext, useState} from 'react';
-import {ChatStorageContext} from './providers/chat-storage-provider.js';
+import React, {useState} from 'react';
 import {useChat} from '../hooks/use-chat.js';
 import {State} from '../constants.js';
 
 export function CreateChat() {
 	const [chatName, setChatName] = useState<string>('');
-	const {setState} = useChat();
-	const {chatStorage} = useContext(ChatStorageContext);
+	const {storage, setState} = useChat();
+	// const {chatStorage} = useContext(ChatStorageContext);
 
 	const handleSubmitChatName = async () => {
+		if (!storage) {
+			console.error(`storage not set`);
+			return;
+		}
 		if (chatName === '') {
 			console.error(`ChatName can't be empty`);
 			return;
 		}
 
 		try {
-			await chatStorage?.createChat(chatName);
+			await storage!.createChat(chatName);
 			setState(State.MENU);
 		} catch (e) {
 			console.error(e);
