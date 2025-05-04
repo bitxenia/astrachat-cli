@@ -3,4 +3,5 @@ export enum State {
 	MENU = 'menu',
 	CHAT = 'chat',
 	CREATE_CHAT = 'CREATE_CHAT',
+	CHAT_ROOM = 'CHAT_ROOM',
 }

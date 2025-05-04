@@ -4,7 +4,7 @@ import {render} from 'ink';
 import meow from 'meow';
 import App from './app.js';
 
-const cli = meow(
+const _cli = meow(
 	`
 	Usage
 	  $ astrachat-cli
@@ -36,6 +36,6 @@ process.on('SIGINT', exit);
 process.on('SIGQUIT', exit);
 process.on('SIGTERM', exit);
 
-const app = render(<App chatName={cli.flags.name} />);
+const app = render(<App />);
 
 await app.waitUntilExit();

@@ -24,6 +24,10 @@ export function Menu() {
 			label: 'Create chat',
 			value: State.CREATE_CHAT,
 		},
+		{
+			label: 'Chat room',
+			value: State.CHAT_ROOM,
+		},
 	];
 
 	return (
